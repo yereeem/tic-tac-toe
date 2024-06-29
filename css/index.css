@@ -1,0 +1,110 @@
+/* Initialise fonts and colours. */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap");
+
+:root {
+  --dark-gray: #1a2a32;
+  --gray: #2e4756;
+  --turquoise: #3cc4bf;
+  --orange: #f2b147;
+  --light-gray: #d3d3d3;
+  --green: #45dd3b;
+  --red: #dd3b3b;
+  --yellow: #dddd3b;
+  --blue: #3b3ddd;
+  --pink: #dd3b85;
+  --purple: #a73bdd;
+}
+
+/* CSS RESET */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+  font-family: "Monserrat", sans-serif;
+  border: none;
+}
+
+html,
+body {
+  height: 100%; /* *Useful* for mobile devices for responsive screen sizes. */
+  background-color: var(--dark-gray);
+}
+
+body {
+  display: flex;
+  justify-content: center; /* centre horizontally. */
+  align-items: center; /* centre vertically. */
+  padding: 90px 20px;
+}
+
+/* Styles for the tic-tac-toe grid (mobile). */
+.grid {
+  display: grid;
+  /* grid coluumns: 
+    * 3 columns, each 80px wide 
+  */
+  grid-template-columns: repeat(3, 80px);
+  /* Grid rows:
+    * Row 1 is 50px high (for actions and player turn status info).
+    * Next 3 rows are for the tic-tac toe grid.
+    * Last row is 60 px high for the score info.
+  */
+  grid-template-rows: 50px repeat(3, 80px) 60px;
+  gap: 5px;
+}
+
+/* Bigger (responsive) Grid styles for desktop (bigger screens). */
+@media (min-width: 768px) {
+  .grid {
+    display: 490px;
+    grid-template-columns: repeat(3, 150px);
+    grid-template-rows: 50px repeat(3, 150px) 60px;
+    gap: 20px;
+  }
+}
+
+/* Styles for any div within the "grid" class. Kept for learnign purposes.*/
+.grid div {
+  border-radius: 5px;
+}
+
+/* Styles for the "turn info" (first row of grid) */
+.turn {
+  grid-column-start: 1;
+  grid-column-end: 3;
+
+  /* Display the turn info as a flex container for centre alignment. */
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.actions {
+  background-color: var(--purple);
+}
+
+/* Styles for the playing squares (the tic-tac-toe grid) */
+.square {
+  background-color: var(--red);
+}
+
+/* Styles for the "score info" (last row of grid). */
+.score {
+  background-color: var(--blue);
+}
+
+/* Styles for the footer */
+footer {
+  color: white;
+  margin-top: 50px;
+}
+
+footer p {
+  margin-top: 10px;
+  text-align: center;
+}
+
+footer a {
+  color: var(--yellow);
+}
