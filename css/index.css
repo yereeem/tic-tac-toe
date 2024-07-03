@@ -6,7 +6,7 @@
   --gray: #2e4756;
   --turquoise: #3cc4bf;
   --orange: #f2b147;
-  --light-gray: #d3d3d3;
+  --light-grey: #d3d3d3;
   --green: #45dd3b;
   --red: #dd3b3b;
   --yellow: #dddd3b;
@@ -21,7 +21,7 @@
   margin: 0;
   box-sizing: border-box;
   list-style: none;
-  font-family: "Monserrat", sans-serif;
+  font-family: "Montserrat", sans-serif;
   border: none;
 }
 
@@ -33,14 +33,43 @@ body {
 
 body {
   display: flex;
-  justify-content: center; /* centre horizontally. */
+  flex-direction: column;
   align-items: center; /* centre vertically. */
+  justify-content: center; /* centre horizontally */
   padding: 90px 20px;
+}
+
+button:hover {
+  cursor: pointer;
+  opacity: 85%;
+}
+
+/* Shared utility classes. */
+.hidden {
+  display: none !important;
+}
+
+.border {
+  border: 1px solid rgba(212, 212, 212, 0.2);
+}
+
+.yellow {
+  color: var(--yellow);
+}
+
+.turquoise {
+  color: var(--turquoise);
+}
+
+.shadow {
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 /* Styles for the tic-tac-toe grid (mobile). */
 .grid {
   display: grid;
+  padding-top: 10px;
   /* grid coluumns: 
     * 3 columns, each 80px wide 
   */
@@ -51,28 +80,30 @@ body {
     * Last row is 60 px high for the score info.
   */
   grid-template-rows: 50px repeat(3, 80px) 60px;
-  gap: 5px;
+  gap: 10px;
 }
 
 /* Bigger (responsive) Grid styles for desktop (bigger screens). */
 @media (min-width: 768px) {
   .grid {
-    display: 490px;
-    grid-template-columns: repeat(3, 150px);
-    grid-template-rows: 50px repeat(3, 150px) 60px;
-    gap: 20px;
+    width: 384px;
+    grid-template-columns: repeat(3, 120px);
+    grid-template-rows: 50px repeat(3, 120px) 60px;
+    gap: 15px;
   }
 }
 
 /* Styles for any div within the "grid" class. Kept for learnign purposes.*/
 .grid div {
-  border-radius: 5px;
 }
 
 /* Styles for the "turn info" (first row of grid) */
 .turn {
+  color: var(--yellow);
+
   grid-column-start: 1;
   grid-column-end: 3;
+  align-self: center;
 
   /* Display the turn info as a flex container for centre alignment. */
   display: flex;
@@ -80,18 +111,116 @@ body {
   gap: 20px;
 }
 
-.actions {
-  background-color: var(--purple);
+/* icon styles for the "turn info" section. */
+.turn i {
+  font-size: 1.8rem;
+  margin-left: 10px;
+  animation: 0.6s ease-in-out turn-icon-animation;
+}
+/* animation frames of the icon. */
+@keyframes turn-icon-animation {
+  /* changes the size of the icon so it pops (original size, bigger, original size) during the 0.6s animation time. */
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* text styles for the "turn info" section. */
+.turn p {
+  font-size: 14px;
+  animation: 0.6s ease-in-out turn-text-animation;
+}
+/* animation frames of the text. */
+@keyframes turn-text-animation {
+  /* changes the opacity, and text (x) placement during the 0.6s animation time. */
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 100%;
+    transform: translateX(0);
+  }
+}
+
+/* Menu styles */
+.menu {
+  position: relative;
+}
+
+.items {
+  position: absolute;
+  z-index: 10;
+  top: 60px;
+  right: 0;
+  background-color: #203139;
+  border-radius: 2px;
+  padding: 10px;
+}
+
+/* Styles for all buttons within the menu items. */
+.items button {
+  background-color: transparent;
+  padding: 8px;
+  color: white;
+}
+
+.items button:hover {
+  /* background-color: #18262c; */
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.menu-btn {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  color: white;
+  background-color: rgba(211, 211, 211, 0.05);
+  border: 1px solid transparent;
 }
 
 /* Styles for the playing squares (the tic-tac-toe grid) */
 .square {
-  background-color: var(--red);
+  background-color: var(--gray);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+}
+
+.square:hover {
+  cursor: pointer;
+  opacity: 85%;
 }
 
 /* Styles for the "score info" (last row of grid). */
 .score {
-  background-color: var(--blue);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.score p {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.score span {
+  font-size: 12px;
+  margin-top: 2px;
 }
 
 /* Styles for the footer */
@@ -103,8 +232,45 @@ footer {
 footer p {
   margin-top: 10px;
   text-align: center;
+  font-size: smaller;
 }
 
 footer a {
   color: var(--yellow);
+  font-size: smaller;
+}
+
+/* Modal styles - opens when game finishes  */
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-contents {
+  transform: translateY(-80px);
+  height: 150px;
+  width: 100%;
+  max-width: 300px;
+  background-color: #2a4544;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  color: white;
+  margin: 10px;
+}
+
+.modal-contents button {
+  padding: 10px;
+  background-color: var(--turquoise);
+  color: #2a4544;
+  border-radius: 3px;
 }
